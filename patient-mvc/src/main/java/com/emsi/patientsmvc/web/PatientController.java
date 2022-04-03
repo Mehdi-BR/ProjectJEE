@@ -39,4 +39,10 @@ public class PatientController {
         return "redirect:/index?page="+page+"&keyword="+keyword;
 
     }
+
+    @GetMapping("/formPatients")
+    public String formPatients(Model model){
+        model.addAttribute("patient",new Patient());
+        return "formPatients";
+    }
 }

@@ -20,14 +20,14 @@ public class PatientsMvcApplication {
 CommandLineRunner commandLineRunner(PatientRepository PR){
         return args -> {
 PR.save(new Patient(null,"hassan",new Date(),false,12));
-            PR.save(
+           /* PR.save(
                     new Patient(  null, "Mohammed", new Date(),  true, 321));
             PR.save(
                     new Patient( null,  "Yasmine", new Date(),  true,  65));
             PR.save(
                     new Patient(  null,  "Hanae", new Date(), false,  32));
 
-
+*/
             PR.findAll().forEach(patient -> {
                 System.out.println(patient.getNom());
             });
