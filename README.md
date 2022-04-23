@@ -10,3 +10,9 @@
 <h3>supprimer un patient:</h3>
 <img src="ScreenShotsJEE\TP3\SC3.png" width="1000">
 <img src="ScreenShotsJEE\TP3\SC4.png" width="1000"> 
+<h3>ajouter un patient:</h3>
+<img src="ScreenShotsJEE\TP3\SC5.png" width="1000"> 
+<h3>modifier un patient:</h3>
+<img src="ScreenShotsJEE\TP3\SC6.png" width="1000"> 
+<h3>Authentification(In Memory Authentification ):</h3>
+<img src="ScreenShotsJEE\TP3\SC6.png" width="1000"> 
