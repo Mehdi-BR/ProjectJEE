@@ -11,7 +11,7 @@
 <body>
 <div layout:fragment="content1" >
   <div class="col-md-6 offset-3">
-      <form method="post" th:action="@{save}">
+      <form method="post" th:action="@{/admin/save}">
           <div class="mb-3">
               <lable class="form-label">Nom:</lable>
               <input class="form-control" type="text" name="nom" th:value="${patient.nom}">
