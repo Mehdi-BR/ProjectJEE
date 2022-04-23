@@ -22,7 +22,7 @@ import java.util.List;
 public class PatientController {
     private PatientRepository PR;
 
-    @GetMapping(path = "/index")
+    @GetMapping(path ={"/index","/"} )
     public String patients(Model model,
                            @RequestParam(name = "page", defaultValue = "0") int page,
                            @RequestParam(name = "size", defaultValue = "5") int size,
@@ -37,6 +37,7 @@ public class PatientController {
 
         return "patients";
     }
+
 
     @GetMapping("/delete")
     public String delete(long id, String keyword, int page) {
