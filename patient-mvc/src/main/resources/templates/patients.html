@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="template1"
+      layout:decorate="template"
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -10,22 +10,54 @@
 </head>
 <body>
 <div layout:fragment="content1" >
-    <div class="container mt-2">
+    <div class="container ">
 
     <div class="card">
 
         <div class="card-header">
             liste des patients </div>
         <div class="card-body">
-            <form method="get" th:action="@{/user/index}">
-             <label>Key word</label>
-                <input type="text" name="keyword" th:value="${keyword}">
-                <button type="submit" class="btn-primary">Chercher</button>
-            </form>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <form method="get" th:action="@{/user/index}">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class=" row navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item col-auto">
+                                <label for="patient-nom" class="col-form-label">patient:</label>
+                            </li>
+                            <li class="nav-item col-auto">
+                                <input id="patient-nom" class="form-control me-2" placeholder="patient" aria-label="Search"  type="text" name="keyword" th:value="${keyword}">
+                            </li>
+                            <li class="nav-item col-auto">
+                                <label for="patient-genre" class="col-form-label">genre:</label>
+                            </li>
+                            <li class="nav-item col-auto">
+                                <input id="patient-genre" class="form-control me-2" placeholder="genre" aria-label="Search"  type="text" name="genre" th:value="${genre}">
+                            </li>
+                            <li class="nav-item col-auto">
+                            <label for="maxScore"  class="col-form-label" >max Score:</label>
+                        </li>
+                            <li class="nav-item col-auto">
+                                <input id="maxScore" class="form-control me-2" type="search" name="maxScore"  th:value="${maxScore}" aria-label="Search">
+                            </li>
+                        </ul>
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+
+                    </div>
+                    </form>
+                </div>
+            </nav>
+
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>ID</th><th>Nom</th><th>date</th><th>malade</th><th>Score</th>
+                    <th>ID</th><th>Nom</th><th>date</th><th>malade</th><th>genre</th><<th>Score</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,6 +66,7 @@
                     <td th:text="${p.nom}"></td>
                     <td th:text="${p.dateNaissance}"></td>
                     <td th:text="${p.malade}"></td>
+                    <td th:text="${p.genre}"></td>
                     <td th:text="${p.score}"></td>
                     <td sec:authorize="hasAuthority('ADMIN')"><a  onclick="return confirm('etes vous sure?')" class="btn btn-outline-danger"
                         th:href="@{/admin/delete(id=${p.id},keyword=${keyword},page=${currentPage})}">
@@ -52,12 +85,12 @@
 
             <ul class="d-flex justify-content-center m-lg-1 nav nav-pills ">
                 <div class=" btn-group">
-                <li th:each="page,status:${pages}">
-                    <a th:class="${status.index==currentPage?'btn btn-secondary ms-1':'btn btn-outline-secondary ms-1'}"
-                       th:text="${status.index}"
-                       th:href="@{/user/index(page=${status.index}, keyword=${keyword})}"
-                    ></a>
-                </li>
+                    <li th:each="page,status:${pages}">
+                        <a th:class="${status.index==currentPage?'btn btn-secondary ms-1':'btn btn-outline-secondary ms-1'}"
+                           th:text="${status.index}"
+                           th:href="@{/user/index(page=${status.index}, keyword=${keyword},maxScore=${maxScore},genre=${genre})}"
+                        ></a>
+                    </li>
                 </div>
             </ul>
 

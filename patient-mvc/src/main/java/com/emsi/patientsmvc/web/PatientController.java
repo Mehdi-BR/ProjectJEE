@@ -26,13 +26,19 @@ public class PatientController {
     public String patients(Model model,
                            @RequestParam(name = "page", defaultValue = "0") int page,
                            @RequestParam(name = "size", defaultValue = "5") int size,
-                           @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+                           @RequestParam(name = "keyword", defaultValue = "") String keyword,
+                           @RequestParam(name = "maxScore", defaultValue = "10000") int maxScore,
+                           @RequestParam(name = "genre", defaultValue = "") String genre){
 
-        Page<Patient> PagePatients = PR.findByNomContains(keyword, PageRequest.of(page, size));
+       // Page<Patient> PagePatients = PR.findByNomContains(keyword, PageRequest.of(page, size));
+        Page<Patient> PagePatients = PR.findByNomContainsAndScoreIsLessThanAndGenreContains(keyword,maxScore,genre, PageRequest.of(page, size));
         model.addAttribute("ListPatients", PagePatients.getContent());
         model.addAttribute("pages", new int[PagePatients.getTotalPages()]);
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("genre", genre);
+        model.addAttribute("maxScore",maxScore);
+
 
 
         return "patients";
