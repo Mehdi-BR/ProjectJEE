@@ -27,7 +27,7 @@ public class PatientController {
                            @RequestParam(name = "page", defaultValue = "0") int page,
                            @RequestParam(name = "size", defaultValue = "5") int size,
                            @RequestParam(name = "keyword", defaultValue = "") String keyword,
-                           @RequestParam(name = "maxScore", defaultValue = "10000") int maxScore,
+                           @RequestParam(name = "maxScore", defaultValue = "10000000000") int maxScore,
                            @RequestParam(name = "genre", defaultValue = "") String genre){
 
        // Page<Patient> PagePatients = PR.findByNomContains(keyword, PageRequest.of(page, size));

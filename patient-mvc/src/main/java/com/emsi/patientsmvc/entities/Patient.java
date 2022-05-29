@@ -1,5 +1,6 @@
 package com.emsi.patientsmvc.entities;
 
+import com.emsi.patientsmvc.security.entities.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,8 @@ public class Patient {
     @DecimalMin("100")
     private int score;
     private String genre;
+    @ManyToOne
+    private AppUser appUser;
 
 
 }

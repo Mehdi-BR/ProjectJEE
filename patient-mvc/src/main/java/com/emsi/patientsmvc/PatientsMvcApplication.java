@@ -3,6 +3,7 @@ package com.emsi.patientsmvc;
 import com.emsi.patientsmvc.entities.Patient;
 import com.emsi.patientsmvc.repositories.PatientRepository;
 import com.emsi.patientsmvc.security.services.SecurityService;
+import com.emsi.patientsmvc.web.SecurityController;
 import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.security.Principal;
 import java.util.Date;
 
 @SpringBootApplication
@@ -53,9 +55,20 @@ CommandLineRunner saveUsers(SecurityService securityService){
             securityService.addRoleToUser("slimani","USER");
             securityService.addRoleToUser("slimani","ADMIN");
 
-
+            securityService.addPatientToUsersPatients("slimani",223L);
             securityService.addRoleToUser("slimaniya","USER");
             securityService.addRoleToUser("dahmad","USER");
         };
+}
+@Bean
+    CommandLineRunner adduserPatient(SecurityController securityController){
+
+  System.out.println(securityController.getUserID(new Principal() {
+      @Override
+      public String getName() {
+          return null;
+      }
+  }));
+  return null;
 }
 }

@@ -1,5 +1,6 @@
 package com.emsi.patientsmvc.security.entities;
 
+import com.emsi.patientsmvc.entities.Patient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,8 @@ public class AppUser {
     private boolean active;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<AppRole> appRoleList=new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Patient> userPatients=new ArrayList<>();
 
 }

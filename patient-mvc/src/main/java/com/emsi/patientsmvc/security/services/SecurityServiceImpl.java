@@ -1,5 +1,7 @@
 package com.emsi.patientsmvc.security.services;
 
+import com.emsi.patientsmvc.entities.Patient;
+import com.emsi.patientsmvc.repositories.PatientRepository;
 import com.emsi.patientsmvc.security.entities.AppRole;
 import com.emsi.patientsmvc.security.entities.AppUser;
 import com.emsi.patientsmvc.security.repositories.AppRoleRepository;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,6 +24,7 @@ public class SecurityServiceImpl implements SecurityService {
     private AppUserRepository appUserRepository;
     private AppRoleRepository appRoleRepository;
     private PasswordEncoder passwordEncoder;
+    private PatientRepository PR;
     @Override
     public AppUser saveNewUser(String username, String password, String rePassword) {
         if(!password.equals(rePassword))throw new RuntimeException("Password not match");
@@ -58,11 +62,21 @@ AppUser savedAppUser=appUserRepository.save(appUser);
     }
 
     @Override
+    public void addPatientToUsersPatients(String username, Long patientID) {
+        AppUser appUser=appUserRepository.findByUsername(username);
+        if(appUser==null)throw new RuntimeException("User "+username+" not found!");
+        Optional<Patient> patient=PR.findById(patientID);
+        appUser.getUserPatients().add(patient.get());
+
+    }
+
+
+    @Override
     public void removeRoleFromUser(String username, String role) {
         AppUser appUser=appUserRepository.findByUsername(username);
-        if(appUser!=null)throw new RuntimeException("User "+username+" not found!");
+        if(appUser==null)throw new RuntimeException("User "+username+" not found!");
         AppRole appRole=appRoleRepository.findByRole(role);
-        if(appRole!=null)throw new RuntimeException("Role "+role+" not found!");
+        if(appRole==null)throw new RuntimeException("Role "+role+" not found!");
         appUser.getAppRoleList().remove(appRole);
     }
 
